@@ -8,8 +8,6 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200817114706_register-role-update2.cs" />
     <Compile Remove="Data\Migrations\20200817114706_register-role-update2.Designer.cs" />
-    <Compile Remove="Migrations\20200817121005_magie-van-jonathan.cs" />
-    <Compile Remove="Migrations\20200817121005_magie-van-jonathan.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +20,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

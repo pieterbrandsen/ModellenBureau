@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ModellenBureau.Pages
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class testroleModel : PageModel
     {
         public void OnGet()
