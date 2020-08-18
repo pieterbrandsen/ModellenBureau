@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using ModellenBureau.Data;
+using ModellenBureau.Models;
 
 namespace ModellenBureau.Areas.Identity.Pages.Account
 {
@@ -22,13 +23,13 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
 
     public class RegisterModel : PageModel
     {
-        public List<SelectListItem> Options { get; set; }
 
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _db;
+        public List<SelectListItem> Options { get; set; }
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -70,6 +71,12 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string Name { get; set; }
+            public string Address { get; set; }
+            public string City { get; set; }
+            public string PostalCode { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -91,7 +98,13 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var userRole = Request.Form["userRole"];
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, 
+                                                 Email = Input.Email,
+                                                 Name = Input.Name,
+                                                 Address = Input.Address,
+                                                 City = Input.City,
+                                                 PostalCode = Input.PostalCode
+                                                };
                 
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
