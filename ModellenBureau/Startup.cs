@@ -30,9 +30,12 @@ namespace ModellenBureau
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false;
+                                                                   options.Password.RequireLowercase = false;
+                                                                   options.Password.RequireUppercase = false;
+                                                                   options.Password.RequireNonAlphanumeric = false;})
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
         }
 
