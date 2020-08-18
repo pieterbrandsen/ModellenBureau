@@ -12,6 +12,7 @@ using ModellenBureau.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ModellenBureau.Models;
 
 namespace ModellenBureau
 {
@@ -30,11 +31,15 @@ namespace ModellenBureau
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false;
-                                                                   options.Password.RequireLowercase = false;
-                                                                   options.Password.RequireUppercase = false;
-                                                                   options.Password.RequireNonAlphanumeric = false;})
-                    .AddRoles<IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+                    .AddDefaultTokenProviders()
+                    .AddDefaultUI()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
         }
@@ -72,7 +77,7 @@ namespace ModellenBureau
         {
             //initializing custom roles 
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            //var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             string[] roleNames = { "Admin", "Customer", "Model" };
             IdentityResult roleResult;
 
