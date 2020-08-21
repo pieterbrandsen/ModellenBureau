@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -72,11 +73,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            public string Name { get; set; }
-            public string Address { get; set; }
-            public string City { get; set; }
-            public string PostalCode { get; set; }
+            public ApplicationUser ApplicationUser { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -97,17 +94,56 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var userRole = Request.Form["userRole"];
-                var user = new ApplicationUser { UserName = Input.Email, 
-                                                 Email = Input.Email,
-                                                 Name = Input.Name,
-                                                 Address = Input.Address,
-                                                 City = Input.City,
-                                                 PostalCode = Input.PostalCode
-                                                };
-                
+                string userRole = Request.Form["userRole"];
+                var user = new IdentityUser();
+                IdentityResult result = new IdentityResult();
+                if (userRole == RoleNames.Customer)
+                {
+                    user = new CustomerUser
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        FirstName = Input.ApplicationUser.FirstName,
+                        LastName = Input.ApplicationUser.LastName,
+                        Address = Input.ApplicationUser.Address,
+                        City = Input.ApplicationUser.City,
+                        PostalCode = Input.ApplicationUser.PostalCode,
+                        IsVerified = false
+                    };
+                    result = await _userManager.CreateAsync(user, Input.Password);
+                } else if (userRole == RoleNames.Model)
+                {
+                    user = new ModelUser
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        FirstName = Input.ApplicationUser.FirstName,
+                        LastName = Input.ApplicationUser.LastName,
+                        Address = Input.ApplicationUser.Address,
+                        City = Input.ApplicationUser.City,
+                        PostalCode = Input.ApplicationUser.PostalCode,
+                        IsVerified = false
+                    };
+                    result = await _userManager.CreateAsync(user, Input.Password);
+                }
 
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                // this may become a cleaner solution in the future
+
+                //if (userRole == RoleNames.Customer)
+                //{
+                //    CustomerUser customerUser = new CustomerUser();
+                //    foreach (PropertyInfo prop in user.GetType().GetProperties())
+                //    {
+                //        typeof(CustomerUser)
+                //    }
+                //    var result = await _userManager.CreateAsync(user, Input.Password);
+                //}
+                //else if (userRole == RoleNames.Model)
+                //{
+                //    //ModelUser modelUser = (ModelUser)user;
+                //    var result = await _userManager.CreateAsync((ModelUser)user, Input.Password);
+                //}
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -136,10 +172,10 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
                     }
                     
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                //foreach (var error in result.Errors)
+                //{
+                //    ModelState.AddModelError(string.Empty, error.Description);
+                //}
 
                 
             }

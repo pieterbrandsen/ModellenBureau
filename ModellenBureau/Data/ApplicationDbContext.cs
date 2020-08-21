@@ -15,6 +15,9 @@ namespace ModellenBureau.Data
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ModelUser> ModelUser { get; set; }
+        public DbSet<CustomerUser> CustomerUser { get; set; }
+
 
     }
 }

@@ -12,19 +12,85 @@
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled />
+                <label asp-for="Input.ApplicationUser.FirstName"></label>
+                <input asp-for="Input.ApplicationUser.FirstName" class="form-control" disabled />
             </div>
             <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                <label asp-for="Input.ApplicationUser.LastName"></label>
+                <input asp-for="Input.ApplicationUser.LastName" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Input.ApplicationUser.Address"></label>
                 <input asp-for="Input.ApplicationUser.Address" class="form-control" />
                 <span asp-validation-for="Input.ApplicationUser.Address" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Input.ApplicationUser.City"></label>
+                <input asp-for="Input.ApplicationUser.City" class="form-control" />
+                <span asp-validation-for="Input.ApplicationUser.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ApplicationUser.PostalCode"></label>
+                <input asp-for="Input.ApplicationUser.PostalCode" class="form-control" />
+                <span asp-validation-for="Input.ApplicationUser.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            @if (User.IsInRole(ModellenBureau.Models.RoleNames.Model))
+            {
+                <div class="form-group">
+                    <label asp-for="Input.ModelUser.Age"></label>
+                    <input asp-for="Input.ModelUser.Age" class="form-control" />
+                    <span asp-validation-for="Input.ModelUser.Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ModelUser.Chest"></label>
+                    <input asp-for="Input.ModelUser.Chest" class="form-control" />
+                    <span asp-validation-for="Input.ModelUser.Chest" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ModelUser.Height"></label>
+                    <input asp-for="Input.ModelUser.Height" class="form-control" />
+                    <span asp-validation-for="Input.ModelUser.Height" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ModelUser.LegLength"></label>
+                    <input asp-for="Input.ModelUser.LegLength" class="form-control" />
+                    <span asp-validation-for="Input.ModelUser.LegLength" class="text-danger"></span>
+                </div>
+            }
+            else if (User.IsInRole(ModellenBureau.Models.RoleNames.Customer))
+            {
+                <div class="form-group">
+                    <label asp-for="Input.CustomerUser.CompanyName"></label>
+                    <input asp-for="Input.CustomerUser.CompanyName" class="form-control" />
+                    <span asp-validation-for="Input.CustomerUser.CompanyName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.CustomerUser.CompanyAddres"></label>
+                    <input asp-for="Input.CustomerUser.CompanyAddres" class="form-control" />
+                    <span asp-validation-for="Input.CustomerUser.CompanyAddres" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.CustomerUser.Website"></label>
+                    <input asp-for="Input.CustomerUser.Website" class="form-control" />
+                    <span asp-validation-for="Input.CustomerUser.Website" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.CustomerUser.KVK_Number"></label>
+                    <input asp-for="Input.CustomerUser.KVK_Number" class="form-control" />
+                    <span asp-validation-for="Input.CustomerUser.KVK_Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.CustomerUser.BTW_Number"></label>
+                    <input asp-for="Input.CustomerUser.BTW_Number" class="form-control" />
+                    <span asp-validation-for="Input.CustomerUser.BTW_Number" class="text-danger"></span>
+                </div>
+            }
 
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>

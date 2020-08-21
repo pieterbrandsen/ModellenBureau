@@ -33,7 +33,7 @@ namespace ModellenBureau
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -78,7 +78,7 @@ namespace ModellenBureau
             //initializing custom roles 
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             //var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            string[] roleNames = { "Admin", "Customer", "Model" };
+            string[] roleNames = { RoleNames.Admin, RoleNames.Customer, RoleNames.Model };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
