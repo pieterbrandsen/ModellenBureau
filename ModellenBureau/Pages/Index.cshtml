@@ -1,10 +1,41 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Please complete your personal information by clicking on your profile</p>
+    <h1 class="display-4">Our Models</h1>
+
+    <div style="margin: auto; width: 90%">
+
+        @{
+            @foreach (var user in Model.Users)
+            {
+                <div style="margin-bottom: 50px; float: left; width: 50%; height: 25%;">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="text-center">
+                            @{string fullName = user.FirstName + " " + user.LastName;}
+                            @fullName
+                        </div>
+                        <div class="text-center">
+                            @{int age = user.Age;}
+                            @age
+                        </div>
+                        <div class="text-center">
+                            @{string city = user.City;}
+                            @city
+                        </div>
+                    }
+                    <div>
+                        <img style="max-height: 25%; max-width: 50%;" src="https://www.internet-toys.com/producten/original/welly_schaalmodel_mercedes_amg_gtr_rood_12_cm_395226_20200506162634.jpg">
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>

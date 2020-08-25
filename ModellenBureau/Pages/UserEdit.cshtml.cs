@@ -11,15 +11,15 @@ using Microsoft.Extensions.Hosting.Internal;
 using ModellenBureau.Data;
 using ModellenBureau.Models;
 
-namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
+namespace ModellenBureau.Pages
 {
-    public partial class IndexModel : PageModel
+    public class UserEditModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ApplicationDbContext _db;
 
-        public IndexModel(
+        public UserEditModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ApplicationDbContext db)
@@ -30,6 +30,8 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+        public string userRole { get; set; }
+
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -84,21 +86,32 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
             };
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string Id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(Id);
+            
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+
+            if (await _userManager.IsInRoleAsync(user, RoleNames.Model))
+            {
+                userRole = RoleNames.Model;
+            }
+            else if (await _userManager.IsInRoleAsync(user, RoleNames.Customer))
+            {
+                userRole = RoleNames.Customer;
             }
 
             await LoadAsync(user);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(Id);
             var userRole = await _userManager.GetRolesAsync(user);
             
             if (user == null)
@@ -114,25 +127,32 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
 
             if (userRole[0] == RoleNames.Customer)
             {
-                CustomerUser customerUser = (CustomerUser)await _userManager.GetUserAsync(User);
-                customerUser.Website = Input.CustomerUser.Website;
+                CustomerUser customerUser = (CustomerUser)await _userManager.FindByIdAsync(Id);
+                customerUser.FirstName = Input.CustomerUser.FirstName;
+                customerUser.LastName = Input.CustomerUser.LastName;
+                customerUser.Address = Input.CustomerUser.Address;
+                customerUser.City = Input.CustomerUser.City;
+                customerUser.PostalCode = Input.CustomerUser.PostalCode;
                 customerUser.CompanyAddres = Input.CustomerUser.CompanyAddres;
                 customerUser.CompanyName = Input.CustomerUser.CompanyName;
                 customerUser.KVK_Number = Input.CustomerUser.KVK_Number;
                 customerUser.BTW_Number = Input.CustomerUser.BTW_Number;
-                customerUser.IsVerified = false;
 
                 var result = await _userManager.UpdateAsync(customerUser);
 
             }
             else if (userRole[0] == RoleNames.Model)
             {
-                ModelUser modelUser = (ModelUser)await _userManager.GetUserAsync(User);
+                ModelUser modelUser = (ModelUser)await _userManager.FindByIdAsync(Id);
+                modelUser.FirstName = Input.ModelUser.FirstName;
+                modelUser.LastName = Input.ModelUser.LastName;
+                modelUser.Address = Input.ModelUser.Address;
+                modelUser.City = Input.ModelUser.City;
+                modelUser.PostalCode = Input.ModelUser.PostalCode;
                 modelUser.Age = Input.ModelUser.Age;
                 modelUser.Height = Input.ModelUser.Height;
                 modelUser.Chest = Input.ModelUser.Chest;
                 modelUser.LegLength = Input.ModelUser.LegLength;
-                modelUser.IsVerified = false;
 
                 var result = await _userManager.UpdateAsync(modelUser);
 
@@ -150,7 +170,6 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }

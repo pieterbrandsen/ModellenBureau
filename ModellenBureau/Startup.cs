@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModellenBureau.Models;
 using Microsoft.AspNetCore.Http;
+using ModellenBureau.Pages;
 
 namespace ModellenBureau
 {
@@ -43,12 +44,13 @@ namespace ModellenBureau
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-               // .AddRazorPagesOptions(options =>
-               //{
-               //    options.RootDirectory = "/Pages";
-               //    options.Conventions.AddPageRoute("/Pages/UserDetails", "");
-               //});
+            // .AddRazorPagesOptions(options =>
+            //{
+            //    options.RootDirectory = "/Pages";
+            //    options.Conventions.AddPageRoute("/Pages/UserDetails", "");
+            //});
             //services.AddRouting();
+            //services.AddScoped<FileModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,7 +109,7 @@ namespace ModellenBureau
             var admin = new ApplicationUser();
             admin.Email = "admin@admin.nl";
             admin.UserName = admin.Email;
-            admin.PasswordHash = "";
+            admin.PasswordHash = "AQAAAAEAACcQAAAAEC7vUlO2YPPjCAHhbTu4VWhY4fPF/p1lJqGE2X3tMjECNIaNaku8Eqo1exLzHAkwqw==";
             if (await UserManager.CreateAsync(admin) == IdentityResult.Success)
             {
                 await UserManager.AddToRoleAsync(admin, RoleNames.Admin);
