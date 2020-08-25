@@ -107,7 +107,7 @@ namespace ModellenBureau
             var admin = new ApplicationUser();
             admin.Email = "admin@admin.nl";
             admin.UserName = admin.Email;
-            admin.PasswordHash = "";
+            admin.PasswordHash = "AQAAAAEAACcQAAAAEC7vUlO2YPPjCAHhbTu4VWhY4fPF/p1lJqGE2X3tMjECNIaNaku8Eqo1exLzHAkwqw==";
             if (await UserManager.CreateAsync(admin) == IdentityResult.Success)
             {
                 await UserManager.AddToRoleAsync(admin, RoleNames.Admin);
