@@ -29,8 +29,7 @@ namespace ModellenBureau
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //Users = await _userManager.Users.ToListAsync();
-            Users = await _db.ModelUser.ToListAsync();//ToList<ModelUser>//GetUsersInRoleAsync(RoleNames.Model);
+            Users = await _db.ModelUser.ToListAsync();
             Users.Sort();
             if (Users.Count == 0)
             {
