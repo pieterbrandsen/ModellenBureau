@@ -120,6 +120,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
                 customerUser.CompanyName = Input.CustomerUser.CompanyName;
                 customerUser.KVK_Number = Input.CustomerUser.KVK_Number;
                 customerUser.BTW_Number = Input.CustomerUser.BTW_Number;
+                customerUser.IsVerified = false;
 
                 var result = await _userManager.UpdateAsync(customerUser);
 
@@ -131,6 +132,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
                 modelUser.Height = Input.ModelUser.Height;
                 modelUser.Chest = Input.ModelUser.Chest;
                 modelUser.LegLength = Input.ModelUser.LegLength;
+                modelUser.IsVerified = false;
 
                 var result = await _userManager.UpdateAsync(modelUser);
 
