@@ -1,0 +1,23 @@
+﻿@page
+@model VerifyAccountsModel
+@{
+    ViewData["Title"] = "Verify Customer or Model Accounts";
+    ViewData["ActivePage"] = ManageNavPages.VerifyAccounts;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+    <table class="table">
+        <tr>
+            <td><a class="nav-link" href="/ModelList">Model List</a></td>
+            <td><a class="nav-link" href="/CustomerList">Customer List</a></td>
+        </tr>
+    </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

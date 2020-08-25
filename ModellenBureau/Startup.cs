@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModellenBureau.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ModellenBureau
 {
@@ -42,6 +43,12 @@ namespace ModellenBureau
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+               // .AddRazorPagesOptions(options =>
+               //{
+               //    options.RootDirectory = "/Pages";
+               //    options.Conventions.AddPageRoute("/Pages/UserDetails", "");
+               //});
+            //services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,14 +77,20 @@ namespace ModellenBureau
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                //endpoints.MapGet("/Pages/UserDetails/{UserId}", async context =>
+                //{
+                //    var UserId = context.Request.RouteValues["UserId"];
+                //    await context.Response.WriteAsync($"{UserId}");
+                //});
             });
             CreateRoles(serviceProvider).Wait();
+
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
             //initializing custom roles 
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            //var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             string[] roleNames = { RoleNames.Admin, RoleNames.Customer, RoleNames.Model };
             IdentityResult roleResult;
 
@@ -89,6 +102,15 @@ namespace ModellenBureau
                     //create the roles and seed them to the database: Question 1
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
+            }
+
+            var admin = new ApplicationUser();
+            admin.Email = "admin@admin.nl";
+            admin.UserName = admin.Email;
+            admin.PasswordHash = "";
+            if (await UserManager.CreateAsync(admin) == IdentityResult.Success)
+            {
+                await UserManager.AddToRoleAsync(admin, RoleNames.Admin);
             }
         }
     }

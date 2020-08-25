@@ -1,0 +1,118 @@
+﻿@page "{id}"
+@model ModellenBureau.Pages.UserDetailsModel
+@{
+    ViewData["Title"] = "UserDetails";
+}
+@using  ModellenBureau.Models
+
+<h1>UserDetails</h1>
+<form method="post">
+
+    @if (Model.userRole == RoleNames.Model)
+    {
+        <table class="table">
+
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.FirstName): </td>
+                <td class="text-info">@Model.modelUser.FirstName</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.LastName): </td>
+                <td class="text-info">@Model.modelUser.LastName</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.Email): </td>
+                <td class="text-info">@Model.modelUser.Email</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.Address): </td>
+                <td class="text-info">@Model.modelUser.Address</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.City): </td>
+                <td class="text-info">@Model.modelUser.City</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.PostalCode): </td>
+                <td class="text-info">@Model.modelUser.PostalCode</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.Age): </td>
+                <td class="text-info">@Model.modelUser.Age</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.Height): </td>
+                <td class="text-info">@Model.modelUser.Height</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.Chest): </td>
+                <td class="text-info">@Model.modelUser.Chest</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.modelUser.LegLength): </td>
+                <td class="text-info">@Model.modelUser.LegLength</td>
+            </tr>
+        </table>
+        @if (!Model.modelUser.IsVerified)
+        {
+            <button asp-route-id="@Model.modelUser.Id" type="submit" class="btn btn-primary">Verify Account</button>
+        }
+        else
+        {
+            <button asp-route-id="@Model.modelUser.Id" type="submit" class="btn btn-primary" disabled>Verify Account</button>
+        }
+    }
+    else if (Model.userRole == RoleNames.Customer)
+    {
+        <table class="table">
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.FirstName): </td>
+                <td class="text-info">@Model.customerUser.FirstName</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.LastName): </td>
+                <td class="text-info">@Model.customerUser.LastName</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.Email): </td>
+                <td class="text-info">@Model.customerUser.Email</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.Address): </td>
+                <td class="text-info">@Model.customerUser.Address</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.City): </td>
+                <td class="text-info">@Model.customerUser.City</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.PostalCode): </td>
+                <td class="text-info">@Model.customerUser.PostalCode</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.CompanyName): </td>
+                <td class="text-info">@Model.customerUser.CompanyName</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.CompanyAddres): </td>
+                <td class="text-info">@Model.customerUser.CompanyAddres</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.BTW_Number): </td>
+                <td class="text-info">@Model.customerUser.BTW_Number</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(usr => usr.customerUser.KVK_Number): </td>
+                <td class="text-info">@Model.customerUser.KVK_Number</td>
+            </tr>
+        </table>
+        @if (!Model.customerUser.IsVerified)
+        {
+            <button asp-route-id="@Model.customerUser.Id" type="submit" class="btn btn-primary">Verify Account</button>
+        }
+        else
+        {
+            <button asp-route-id="@Model.customerUser.Id" type="submit" class="btn btn-primary" disabled>Verify Account</button>
+        }
+    }
+</form>
