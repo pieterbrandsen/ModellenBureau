@@ -1,0 +1,11 @@
+﻿@page
+@model ModellenBureau.Pages.UploadPhotoModel
+@{
+    ViewData["Title"] = "UploadPhoto";
+}
+
+<h1>UploadPhoto</h1>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="Upload" />
+    <input type="submit" />
+</form>

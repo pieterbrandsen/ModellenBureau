@@ -1,0 +1,27 @@
+﻿@page
+@model ModellenBureau.ModelListModel
+@{
+    ViewData["Title"] = "ModelList";
+}
+
+<h1>Models Overview</h1>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Users[0].FirstName)</th>
+        <th>@Html.DisplayNameFor(model => model.Users[0].LastName)</th>
+        <th>@Html.DisplayNameFor(model => model.Users[0].Email)</th>
+        <th>@Html.DisplayNameFor(model => model.Users[0].IsVerified)</th>
+    </tr>
+    @foreach (var item in Model.Users)
+    {
+    <tr>
+        <td>@item.FirstName</td>
+        <td>@item.LastName</td>
+        <td>@item.Email</td>
+        <td>@item.IsVerified</td>
+        <td>
+            <a asp-page="./UserDetails" asp-route-id="@item.Id">Details</a>
+        </td>
+    </tr>
+    }
+</table>

@@ -80,7 +80,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            Options = _db.Roles.Select(a =>
+            Options = _db.Roles.Where(r => !r.Name.Equals(RoleNames.Admin)).Select(a =>
                                           new SelectListItem
                                           {
                                               Value = a.Name.ToString(),
