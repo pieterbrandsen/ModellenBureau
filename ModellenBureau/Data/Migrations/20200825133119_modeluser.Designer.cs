@@ -10,8 +10,8 @@ using ModellenBureau.Data;
 namespace ModellenBureau.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200821092311_extra-users")]
-    partial class extrausers
+    [Migration("20200825133119_modeluser")]
+    partial class modeluser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,23 +223,35 @@ namespace ModellenBureau.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ModellenBureau.Models.CustomerUser", b =>
+            modelBuilder.Entity("ModellenBureau.Models.FileModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModelUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModelUserId");
+
+                    b.ToTable("FileModel");
+                });
+
+            modelBuilder.Entity("ModellenBureau.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BTW_Number")
-                        .HasColumnType("int");
-
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyAddres")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -248,14 +260,30 @@ namespace ModellenBureau.Data.Migrations
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
-                    b.Property<int>("KVK_Number")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ModellenBureau.Models.CustomerUser", b =>
+                {
+                    b.HasBaseType("ModellenBureau.Models.ApplicationUser");
+
+                    b.Property<int>("BTW_Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyAddres")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("KVK_Number")
+                        .HasColumnType("int");
 
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
@@ -265,10 +293,7 @@ namespace ModellenBureau.Data.Migrations
 
             modelBuilder.Entity("ModellenBureau.Models.ModelUser", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasBaseType("ModellenBureau.Models.ApplicationUser");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -276,26 +301,11 @@ namespace ModellenBureau.Data.Migrations
                     b.Property<float>("Chest")
                         .HasColumnType("real");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("Height")
                         .HasColumnType("real");
 
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("LegLength")
                         .HasColumnType("real");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Waist")
                         .HasColumnType("real");
@@ -352,6 +362,13 @@ namespace ModellenBureau.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ModellenBureau.Models.FileModel", b =>
+                {
+                    b.HasOne("ModellenBureau.Models.ModelUser", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("ModelUserId");
                 });
 #pragma warning restore 612, 618
         }

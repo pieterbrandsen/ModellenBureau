@@ -13,7 +13,7 @@ namespace ModellenBureau.Models
         public float Waist { get; set; }
         public float LegLength { get; set; }
         public float Chest { get; set; }
-
+        public List<FileModel> Photos { get; set; }
         int IComparable<ModelUser>.CompareTo(ModelUser other)
         {
             if (other.IsVerified)

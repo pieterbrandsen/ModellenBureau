@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModellenBureau.Models;
 using Microsoft.AspNetCore.Http;
+using ModellenBureau.Pages;
 
 namespace ModellenBureau
 {
@@ -43,12 +44,13 @@ namespace ModellenBureau
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-               // .AddRazorPagesOptions(options =>
-               //{
-               //    options.RootDirectory = "/Pages";
-               //    options.Conventions.AddPageRoute("/Pages/UserDetails", "");
-               //});
+            // .AddRazorPagesOptions(options =>
+            //{
+            //    options.RootDirectory = "/Pages";
+            //    options.Conventions.AddPageRoute("/Pages/UserDetails", "");
+            //});
             //services.AddRouting();
+            //services.AddScoped<FileModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

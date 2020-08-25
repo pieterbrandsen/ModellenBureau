@@ -221,6 +221,27 @@ namespace ModellenBureau.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ModellenBureau.Models.FileModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModelUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModelUserId");
+
+                    b.ToTable("FileModel");
+                });
+
             modelBuilder.Entity("ModellenBureau.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -339,6 +360,13 @@ namespace ModellenBureau.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ModellenBureau.Models.FileModel", b =>
+                {
+                    b.HasOne("ModellenBureau.Models.ModelUser", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("ModelUserId");
                 });
 #pragma warning restore 612, 618
         }
