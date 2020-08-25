@@ -14,14 +14,17 @@
     </tr>
     @foreach (var item in Model.Users)
     {
-    <tr>
-        <td>@item.FirstName</td>
-        <td>@item.LastName</td>
-        <td>@item.Email</td>
-        <td>@item.IsVerified</td>
-        <td>
-            <a asp-page="./UserDetails" asp-route-id="@item.Id">Details</a>
-        </td>
-    </tr>
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Email</td>
+            <td>@item.IsVerified</td>
+            <td>
+                <a asp-page="./UserDetails" asp-route-id="@item.Id">Details</a>
+            </td>
+            <td>
+                <a asp-page="./UserEdit" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
     }
 </table>
