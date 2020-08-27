@@ -29,10 +29,10 @@ namespace ModellenBureau.Pages
         {
             Users = await _db.ModelUser.ToListAsync();
             Users.Sort();
-            if (Users.Count == 0)
-            {
-                return NotFound($"Unable to load users.");
-            }
+            //if (Users.Count == 0)
+            //{
+            //    return NotFound($"Unable to load users.");
+            //}
 
             return Page();
         }

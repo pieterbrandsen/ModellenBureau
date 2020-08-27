@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ModellenBureau.Data.Migrations
+namespace ModellenBureau.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +39,24 @@ namespace ModellenBureau.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    IsVerified = table.Column<bool>(nullable: true),
+                    CompanyName = table.Column<string>(nullable: true),
+                    CompanyAddres = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true),
+                    KVK_Number = table.Column<int>(nullable: true),
+                    BTW_Number = table.Column<int>(nullable: true),
+                    Age = table.Column<int>(nullable: true),
+                    Height = table.Column<float>(nullable: true),
+                    Waist = table.Column<float>(nullable: true),
+                    LegLength = table.Column<float>(nullable: true),
+                    Chest = table.Column<float>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +68,7 @@ namespace ModellenBureau.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +89,7 @@ namespace ModellenBureau.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -93,8 +109,8 @@ namespace ModellenBureau.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +154,8 @@ namespace ModellenBureau.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -151,6 +167,26 @@ namespace ModellenBureau.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileModel",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    FilePath = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ModelUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileModel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileModel_AspNetUsers_ModelUserId",
+                        column: x => x.ModelUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -191,6 +227,11 @@ namespace ModellenBureau.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileModel_ModelUserId",
+                table: "FileModel",
+                column: "ModelUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -209,6 +250,9 @@ namespace ModellenBureau.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "FileModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
