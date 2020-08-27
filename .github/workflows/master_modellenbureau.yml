@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'modellenbureau'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_141692bbbae240639e4703681c83cb22 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f495a708699047818da026ed4d197890 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
