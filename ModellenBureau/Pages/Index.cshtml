@@ -13,13 +13,13 @@
     <div style="margin: auto; width: 90%">
 
         @{
-            if (Model.Users.Count() > 0)
+            if (Model.FirstPhotos.Count() > 0)
             {
 
-                @foreach (var user in Model.Users)
+                @foreach (var user in Model.FirstPhotos)
                 {
                     <div style="margin-bottom: 50px; float: left; width: 50%; height: 25%;">
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User) && user.PhotoPath != null)
                         {
                             <div class="text-center">
                                 @{string fullName = user.FirstName + " " + user.LastName;}
@@ -33,9 +33,9 @@
                                 @{string city = user.City;}
                                 @city
                             </div>
-                        }
+                                    }
                         <div>
-                            <img style="max-height: 25%; max-width: 50%;" src="https://www.internet-toys.com/producten/original/welly_schaalmodel_mercedes_amg_gtr_rood_12_cm_395226_20200506162634.jpg">
+                            <img style="max-height: 25%; max-width: 50%;" src="@user.PhotoPath.FilePath">
                         </div>
                     </div>
                 }

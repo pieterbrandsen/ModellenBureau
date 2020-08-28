@@ -48,10 +48,17 @@ namespace ModellenBureau.Pages
 
             var photo = new FileModel { Id = Guid.NewGuid().ToString(), FilePath = file };
 
-            var modelUser = _db.ModelUser.Include(m=>m.Photos).FirstOrDefault(u => u.Id == user.Id);
-            modelUser.Photos.Add(photo);
+            //check for double upload
+            if(_db.FileModel.Where(f => f.FilePath == file).ToArray().Length == 0)
+            {
 
-            await _userManager.UpdateAsync(modelUser);
+                var modelUser = _db.ModelUser.Include(m => m.Photos).FirstOrDefault(u => u.Id == user.Id);
+                modelUser.Photos.Add(photo);
+
+                await _userManager.UpdateAsync(modelUser);
+            }
+
+            
 
         }
     }
