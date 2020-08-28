@@ -20,19 +20,19 @@
                 {
                     if (user.PhotoPath != null && user.IsVerified)
                     {
-                        <div style="margin-bottom: 50px; float: left; width: 50%; height: 25%;">
-                            <a asp-page="./UserDetails" asp-route-id="@user.Id">
+                        <a asp-page="./UserDetails" asp-route-id="@user.Id">
+                            <div style="margin-bottom: 50px; float: left; width: 50%; height: 25%;">
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    <div class="text-center">
+                                    <div class="text-center" style="color: black; text-decoration: none;">
                                         @{string fullName = user.FirstName + " " + user.LastName;}
                                         @fullName
                                     </div>
-                                    <div class="text-center">
+                                    <div class="text-center" style="color: black; text-decoration: none;">
                                         @{int age = user.Age;}
                                         @age
                                     </div>
-                                    <div class="text-center">
+                                    <div class="text-center" style="color: black; text-decoration: none;">
                                         @{string city = user.City;}
                                         @city
                                     </div>
@@ -40,8 +40,8 @@
                                 <div style="padding-top:10px;">
                                     <img style="max-height: 25%; max-width: 50%;" src="@user.PhotoPath.FilePath">
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     }
                 }
             }
