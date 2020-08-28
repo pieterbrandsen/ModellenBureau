@@ -17,6 +17,10 @@
             <input asp-for="Input.ApplicationUser.LastName" class="form-control" />
         </div>
         <div class="form-group">
+            <label asp-for="Input.ModelUser.Gender"></label>
+            <input asp-for="Input.ModelUser.Gender" class="form-control" />
+        </div>
+        <div class="form-group">
             <label asp-for="Input.ApplicationUser.Address"></label>
             <input asp-for="Input.ApplicationUser.Address" class="form-control" />
             <span asp-validation-for="Input.ApplicationUser.Address" class="text-danger"></span>

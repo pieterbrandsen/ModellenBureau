@@ -122,7 +122,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
                 customerUser.BTW_Number = Input.CustomerUser.BTW_Number;
                 customerUser.IsVerified = false;
 
-                var result = await _userManager.UpdateAsync(customerUser);
+                await _userManager.UpdateAsync(customerUser);
 
             }
             else if (userRole[0] == RoleNames.Model)
@@ -134,7 +134,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
                 modelUser.LegLength = Input.ModelUser.LegLength;
                 modelUser.IsVerified = false;
 
-                var result = await _userManager.UpdateAsync(modelUser);
+                await _userManager.UpdateAsync(modelUser);
 
             }
 

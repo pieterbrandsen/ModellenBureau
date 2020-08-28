@@ -8,6 +8,7 @@ namespace ModellenBureau.Models
 {
     public class ModelUser : ApplicationUser, IComparable<ModelUser>
     {
+        public string Gender { get; set; }
         public int Age { get; set; }
         public float Height { get; set; }
         public float Waist { get; set; }
