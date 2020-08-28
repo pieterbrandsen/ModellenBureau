@@ -52,6 +52,7 @@ namespace ModellenBureau.Migrations
                     Website = table.Column<string>(nullable: true),
                     KVK_Number = table.Column<int>(nullable: true),
                     BTW_Number = table.Column<int>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: true),
                     Height = table.Column<float>(nullable: true),
                     Waist = table.Column<float>(nullable: true),

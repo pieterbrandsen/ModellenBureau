@@ -36,7 +36,7 @@ namespace ModellenBureau.Pages
         {
 
             var user = await _userManager.GetUserAsync(User);
-            var directoryPath = Path.Combine(_environment.ContentRootPath, "uploads", user.Id);
+            var directoryPath = Path.Combine(_environment.ContentRootPath, "wwwroot", "uploads", user.Id);
             Directory.CreateDirectory(directoryPath);
 
             var file = Path.Combine(directoryPath, Path.GetFileName(Upload.FileName));
@@ -46,7 +46,7 @@ namespace ModellenBureau.Pages
                 await Upload.CopyToAsync(fileStream);
             }
 
-            var photo = new FileModel { Id = Guid.NewGuid().ToString(), FilePath = file };
+            var photo = new FileModel { Id = Guid.NewGuid().ToString(), FilePath = Path.Combine("uploads", user.Id, Path.GetFileName(file)) };
 
             //check for double upload
             if(_db.FileModel.Where(f => f.FilePath == file).ToArray().Length == 0)
