@@ -114,6 +114,8 @@ namespace ModellenBureau
             {
                 await UserManager.AddToRoleAsync(admin, RoleNames.Admin);
             }
+
+            var result = System.IO.Directory.CreateDirectory("./uploads");
         }
     }
 }

@@ -10,7 +10,7 @@ using ModellenBureau.Data;
 namespace ModellenBureau.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200827185440_init")]
+    [Migration("20200828091537_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
