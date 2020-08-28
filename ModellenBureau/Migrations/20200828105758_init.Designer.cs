@@ -10,8 +10,8 @@ using ModellenBureau.Data;
 namespace ModellenBureau.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200828094752_gender")]
-    partial class gender
+    [Migration("20200828105758_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
