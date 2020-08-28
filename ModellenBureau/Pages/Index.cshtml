@@ -18,8 +18,10 @@
 
                 @foreach (var user in Model.FirstPhotos)
                 {
+                    if (user.PhotoPath != null && user.IsVerified)
+                    {
                     <div style="margin-bottom: 50px; float: left; width: 50%; height: 25%;">
-                        @if (SignInManager.IsSignedIn(User) && user.PhotoPath != null)
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="text-center">
                                 @{string fullName = user.FirstName + " " + user.LastName;}
@@ -33,11 +35,12 @@
                                 @{string city = user.City;}
                                 @city
                             </div>
-                                    }
-                        <div>
+                          }
+                        <div style="padding-top:10px;">
                             <img style="max-height: 25%; max-width: 50%;" src="@user.PhotoPath.FilePath">
                         </div>
                     </div>
+                    }
                 }
             }
             else

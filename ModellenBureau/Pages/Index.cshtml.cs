@@ -30,6 +30,8 @@ namespace ModellenBureau.Pages
             public string LastName { get; set; }
             public int Age { get; set; }
             public string City { get; set; }
+
+            public bool IsVerified { get; set; }
             public FileModel PhotoPath { get; set; }
         }
 
@@ -49,8 +51,9 @@ namespace ModellenBureau.Pages
                         LastName = user.LastName,
                         Age = user.Age,
                         City = user.City,
+                        IsVerified = user.IsVerified,
                         PhotoPath = user.Photos.FirstOrDefault()
-                    }) ;
+                    }); ;
 
             }
 
