@@ -26,6 +26,7 @@ namespace ModellenBureau.Pages
         }
 
         public class InputModel{
+            public string Id { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public int Age { get; set; }
@@ -45,6 +46,7 @@ namespace ModellenBureau.Pages
                 if (user.Photos.Count > 0)
                     FirstPhotos.Add(new InputModel
                     {
+                        Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Age = user.Age,
