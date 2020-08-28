@@ -65,7 +65,7 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
                     break;
 
                 case RoleNames.Model:
-                    modelUser = await _db.ModelUser.FirstOrDefaultAsync(u => u.Id == user.Id);
+                    modelUser = await _db.ModelUser.Include(m => m.Photos).FirstOrDefaultAsync(u => u.Id == user.Id);
                     break;
 
                 default:

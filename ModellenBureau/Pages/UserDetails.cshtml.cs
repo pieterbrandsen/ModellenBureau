@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using ModellenBureau.Data;
 using ModellenBureau.Models;
 
@@ -32,7 +33,7 @@ namespace ModellenBureau.Pages
 
             if(await _userManager.IsInRoleAsync(user, RoleNames.Model))
             {
-                modelUser = _db.ModelUser.FirstOrDefault(u => u.Id == Id);
+                modelUser = _db.ModelUser.Include(m=>m.Photos).FirstOrDefault(u => u.Id == Id);
                 userRole = RoleNames.Model;
                 //await _db.FindAsync(modelUser.GetType(), new { Id = Id})
             }
