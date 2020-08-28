@@ -26,6 +26,8 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
 
         public static string VerifyAccounts => "Verify Accounts";
 
+        public static string UploadPhoto => "Upload Photo";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
@@ -43,6 +45,8 @@ namespace ModellenBureau.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
         public static string VerifyAccountClass(ViewContext viewContext) => PageNavClass(viewContext, VerifyAccounts);
+
+        public static string UploadPhotoClass(ViewContext viewContext) => PageNavClass(viewContext, UploadPhoto);
         private static string PageNavClass(ViewContext viewContext, string page)
         {
             var activePage = viewContext.ViewData["ActivePage"] as string
