@@ -1,6 +1,28 @@
 ﻿
 
+a:link {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+}
 
+a:visited {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+}
 
 
 
