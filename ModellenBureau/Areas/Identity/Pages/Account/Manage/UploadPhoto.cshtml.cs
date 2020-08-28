@@ -43,7 +43,8 @@ namespace ModellenBureau.Pages
 
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
-                await Upload.CopyToAsync(fileStream);
+                if(Upload.ContentType.ToString().Contains("image"))
+                        await Upload.CopyToAsync(fileStream);
             }
 
             var photo = new FileModel { Id = Guid.NewGuid().ToString(), FilePath = Path.Combine("uploads", user.Id, Path.GetFileName(file)) };

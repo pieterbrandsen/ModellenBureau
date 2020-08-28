@@ -65,6 +65,18 @@
                     <input asp-for="Input.ModelUser.LegLength" class="form-control" />
                     <span asp-validation-for="Input.ModelUser.LegLength" class="text-danger"></span>
                 </div>
+
+                if (User.IsInRole(ModellenBureau.Models.RoleNames.Model))
+                {
+                    <h2>Photos</h2>
+                    foreach (var photo in Model.Input.ModelUser.Photos)
+                    {
+                        <div style="margin-bottom: 50px; float: left; width: 100%; height: auto; padding:5px">
+                            <img style="max-height: 25%; max-width: 50%;" src="\@photo.FilePath">
+                        </div>
+                    }
+                }
+                <div style="clear:both;"></div>
             }
             else if (User.IsInRole(ModellenBureau.Models.RoleNames.Customer))
             {
