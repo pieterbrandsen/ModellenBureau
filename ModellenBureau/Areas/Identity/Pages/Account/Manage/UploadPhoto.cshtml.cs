@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using ModellenBureau.Models;
 
 namespace ModellenBureau.Pages
 {
+    [Authorize(Roles = RoleNames.Model + ", " + RoleNames.Admin)]
     public class UploadPhotoModel : PageModel
     {
         private readonly IWebHostEnvironment _environment;
@@ -32,13 +34,18 @@ namespace ModellenBureau.Pages
         public IFormFile Upload { get; set; }
         public async Task OnPostAsync()
         {
-            var file = Path.Combine(_environment.ContentRootPath, "uploads", Path.GetFileName(Upload.FileName));
+
+            var user = await _userManager.GetUserAsync(User);
+            var directoryPath = Path.Combine(_environment.ContentRootPath, "uploads", user.Id);
+            Directory.CreateDirectory(directoryPath);
+
+            var file = Path.Combine(directoryPath, Path.GetFileName(Upload.FileName));
+
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await Upload.CopyToAsync(fileStream);
             }
 
-            var user = await _userManager.GetUserAsync(User);
             var photo = new FileModel { Id = Guid.NewGuid().ToString(), FilePath = file };
 
             var modelUser = _db.ModelUser.Include(m=>m.Photos).FirstOrDefault(u => u.Id == user.Id);
