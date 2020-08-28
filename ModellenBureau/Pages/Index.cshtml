@@ -18,28 +18,31 @@
 
                 @foreach (var user in Model.Users)
                 {
-                    <div style="margin-bottom: 75px; float: left; width: 50%; height: 25%;">
-                        <a asp-page="./UserDetails" asp-route-id="@user.Id">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <div class="text-center">
-                                    @{string fullName = user.FirstName + " " + user.LastName;}
-                                    @fullName
+                    if (user.IsVerified)
+                    {
+                        <div style="margin-bottom: 75px; float: left; width: 50%; height: 25%;">
+                            <a asp-page="./UserDetails" asp-route-id="@user.Id">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <div class="text-center">
+                                        @{string fullName = user.FirstName + " " + user.LastName;}
+                                        @fullName
+                                    </div>
+                                    <div class="text-center">
+                                        @{int age = user.Age;}
+                                        @age
+                                    </div>
+                                    <div class="text-center">
+                                        @{string city = user.City;}
+                                        @city
+                                    </div>
+                                            }
+                                <div style="margin-top: 25px;">
+                                    <img style="max-height: 25%; max-width: 50%;" src="https://www.internet-toys.com/producten/original/welly_schaalmodel_mercedes_amg_gtr_rood_12_cm_395226_20200506162634.jpg">
                                 </div>
-                                <div class="text-center">
-                                    @{int age = user.Age;}
-                                    @age
-                                </div>
-                                <div class="text-center">
-                                    @{string city = user.City;}
-                                    @city
-                                </div>
-                            }
-                            <div style="margin-top: 25px;">
-                                <img style="max-height: 25%; max-width: 50%;" src="https://www.internet-toys.com/producten/original/welly_schaalmodel_mercedes_amg_gtr_rood_12_cm_395226_20200506162634.jpg">
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    }
                 }
             }
             else
