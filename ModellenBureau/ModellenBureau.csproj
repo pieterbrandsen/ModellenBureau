@@ -22,4 +22,49 @@
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Pages\UserDetails - Copy %282%29 - Copy %282%29.cshtml.cs">
+      <DependentUpon>UserDetails - Copy (2).cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy %282%29 - Copy - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy (2) - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy %282%29 - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy (2).cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy %282%29.cshtml.cs">
+      <DependentUpon>UserDetails.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy %283%29 - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy (3).cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy %283%29.cshtml.cs">
+      <DependentUpon>UserDetails.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy %282%29 - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy - Copy (2).cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy %282%29.cshtml.cs">
+      <DependentUpon>UserDetails - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy %283%29.cshtml.cs">
+      <DependentUpon>UserDetails - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy - Copy %282%29.cshtml.cs">
+      <DependentUpon>UserDetails - Copy - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy - Copy - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy - Copy - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy - Copy.cshtml.cs">
+      <DependentUpon>UserDetails - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserDetails - Copy.cshtml.cs">
+      <DependentUpon>UserDetails.cshtml.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
