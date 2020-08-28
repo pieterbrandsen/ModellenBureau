@@ -71,18 +71,6 @@
             {
                 <button asp-route-id="@Model.modelUser.Id" type="submit" class="btn btn-primary" disabled>Verify Account</button>
             }
-
-            if (Model.userRole == RoleNames.Model)
-            {
-                <h2>Photos</h2>
-                foreach (var photo in Model.modelUser.Photos)
-                {
-                    <div style="margin-bottom: 50px; float: left; width: 50%; height: auto; padding:5px">
-                        <img style="max-height: 25%; max-width: 50%;" src="../@photo.FilePath">
-                    </div>
-                }
-            }
-            <div style="clear:both;"></div>
         }
         else if (Model.userRole == RoleNames.Customer)
         {
@@ -139,4 +127,18 @@
             }
         }
     }
+    
+    @{
+        if (Model.userRole == RoleNames.Model)
+        {
+    <h2>Photos</h2>
+            foreach (var photo in Model.modelUser.Photos)
+            {
+    <div style="margin-bottom: 50px; float: left; width: 50%; height: auto; padding:5px">
+        <img style="max-height: 25%; max-width: 50%;" src="../@photo.FilePath">
+    </div>
+            }
+        }
+    <div style="clear:both;"></div>
+        }
 </form>
